@@ -84,7 +84,7 @@ class consul_template (
 
   $real_download_url = pick($download_url, "${download_url_base}${version}/${package_name}_${version}_${os}_${arch}.${download_extension}")
 
-  $final_config_options = hiera_hash('consul_template::config_options', $config_options)
+  $final_config_options = lookup('consul_template::config_options', { 'value_type' => Hash, 'merge' => 'deep', 'default_value' => $config_options })
 
   include ::consul_template::install
   include ::consul_template::config
